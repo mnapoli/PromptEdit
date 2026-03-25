@@ -1,4 +1,4 @@
-Lightweight prompt editor for [Claude Code](https://claude.ai/claude-code). Opens as an overlay window with markdown highlighting and file autocomplete.
+Lightweight prompt editor for [Claude Code](https://claude.ai/claude-code) with a macOS native interface.
 
 ![PromptEdit screenshot](./screenshot.png)
 
