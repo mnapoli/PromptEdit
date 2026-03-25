@@ -1,6 +1,4 @@
-# PromptEdit
-
-A lightweight prompt editor for [Claude Code](https://claude.ai/claude-code). Opens as an overlay window with markdown highlighting and file autocomplete.
+Lightweight prompt editor for [Claude Code](https://claude.ai/claude-code). Opens as an overlay window with markdown highlighting and file autocomplete.
 
 ## Features
 
@@ -23,14 +21,20 @@ The binary will be at `src-tauri/target/release/promptedit`.
 
 ## Setup
 
-Set PromptEdit as your Claude Code editor:
+Set PromptEdit as your Claude Code editor. Either globally via your shell:
 
 ```bash
 export EDITOR="promptedit"
 ```
 
+Or specifically for Claude Code in `~/.claude/settings.json`:
+
+```json
+{
+  "env": {
+    "EDITOR": "promptedit"
+  }
+}
+```
+
 Then press `Ctrl+G` in Claude Code to open PromptEdit.
-
-## Tech
-
-Tauri v2 + React + CodeMirror 6. macOS only.
