@@ -1,11 +1,19 @@
 Lightweight prompt editor for [Claude Code](https://claude.ai/claude-code). Opens as an overlay window with markdown highlighting and file autocomplete.
 
-## Features
+![PromptEdit screenshot](./screenshot.png)
 
-- Markdown syntax highlighting (bold, italic, code, quotes, headings)
-- `@file` autocomplete with fuzzy search (respects `.gitignore`)
-- `Cmd+S` to save and submit, `Escape` to cancel
-- Light/dark theme (follows system)
+## How it works
+
+Hit `Ctrl+G` in Claude Code to edit your prompt in an overlay window:
+
+- Edit prompts outside your terminal, with your keyboard and... mouse 🤯
+- `@file` autocomplete
+- `Cmd+S` to save and submit
+
+Also:
+
+- Syntax highlighting
+- Light/dark theme that matches your system
 - Window position and size remembered between sessions
 
 ## Install
@@ -16,8 +24,6 @@ Download the latest `.dmg` from [Releases](../../releases), or build from source
 npm install
 npm run tauri build
 ```
-
-The binary will be at `src-tauri/target/release/promptedit`.
 
 ## Setup
 
