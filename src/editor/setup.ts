@@ -1,4 +1,4 @@
-import { EditorState, type Extension } from "@codemirror/state";
+import { EditorState } from "@codemirror/state";
 import { EditorView, keymap, placeholder } from "@codemirror/view";
 import { defaultKeymap, history, historyKeymap } from "@codemirror/commands";
 import {

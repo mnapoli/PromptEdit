@@ -42,3 +42,33 @@ body,
   height: 100%;
   width: 100%;
 }
+
+/* Autocomplete popup */
+.cm-tooltip-autocomplete {
+  max-height: 500px !important;
+  font-family: "Space Mono", monospace;
+}
+
+.cm-tooltip-autocomplete > ul {
+  max-height: 500px !important;
+}
+
+.cm-tooltip-autocomplete ul li {
+  padding: 6px 12px !important;
+  line-height: 1.5 !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  .cm-tooltip-autocomplete {
+    background-color: #2d2d2d !important;
+    border: 1px solid #444 !important;
+    color: #d4d4d4 !important;
+  }
+  .cm-tooltip-autocomplete ul li {
+    color: #d4d4d4 !important;
+  }
+  .cm-tooltip-autocomplete ul li[aria-selected] {
+    background-color: #264f78 !important;
+    color: #ffffff !important;
+  }
+}
