@@ -59,3 +59,39 @@ jobs:
           releaseBody: "See the assets to download and install this version."
           releaseDraft: false
           prerelease: false
+
+      - name: Update Homebrew formula
+        env:
+          GH_TOKEN: ${{ secrets.HOMEBREW_TAP_TOKEN }}
+        run: |
+          VERSION="${{ steps.version.outputs.VERSION }}"
+          DMG_URL="https://github.com/mnapoli/PromptEdit/releases/download/v${VERSION}/PromptEdit_${VERSION}_aarch64.dmg"
+          SHA256=$(shasum -a 256 src-tauri/target/release/bundle/dmg/PromptEdit_${VERSION}_aarch64.dmg | cut -d' ' -f1)
+
+          # Clone and update formula
+          git clone https://x-access-token:${GH_TOKEN}@github.com/mnapoli/homebrew-tap.git /tmp/homebrew-tap
+          cd /tmp/homebrew-tap
+
+          cat > Formula/promptedit.rb << EOF
+          class Promptedit < Formula
+            desc "Lightweight prompt editor for Claude Code"
+            homepage "https://github.com/mnapoli/PromptEdit"
+            url "${DMG_URL}"
+            sha256 "${SHA256}"
+            version "${VERSION}"
+
+            depends_on macos: :ventura
+
+            def install
+              app = "PromptEdit.app"
+              prefix.install app
+              (bin/"promptedit").write_exec_script "#{prefix}/#{app}/Contents/MacOS/PromptEdit"
+            end
+          end
+          EOF
+
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add Formula/promptedit.rb
+          git commit -m "Update promptedit to v${VERSION}"
+          git push
