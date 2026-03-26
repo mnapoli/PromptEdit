@@ -26,6 +26,19 @@ jobs:
         id: version
         run: echo "VERSION=${GITHUB_REF_NAME#v}" >> $GITHUB_OUTPUT
 
+      - name: Generate changelog
+        id: changelog
+        run: |
+          PREV_TAG=$(git tag --sort=-version:refname | head -2 | tail -1)
+          if [ -z "$PREV_TAG" ] || [ "$PREV_TAG" = "${{ github.ref_name }}" ]; then
+            echo "CHANGELOG=Initial release" >> $GITHUB_OUTPUT
+          else
+            LOG=$(git log --pretty=format:"- %s" "$PREV_TAG".."${{ github.ref_name }}" -- . ':!.github' | grep -v "Co-Authored-By" | head -20)
+            echo "CHANGELOG<<EOF" >> $GITHUB_OUTPUT
+            echo "$LOG" >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+          fi
+
       - name: Patch version in tauri.conf.json
         run: |
           jq '.version = "${{ steps.version.outputs.VERSION }}"' src-tauri/tauri.conf.json > tmp.json
@@ -66,7 +79,7 @@ jobs:
         with:
           tagName: ${{ github.ref_name }}
           releaseName: "${{ github.ref_name }}"
-          releaseBody: "See the assets to download and install this version."
+          releaseBody: "${{ steps.changelog.outputs.CHANGELOG }}"
           releaseDraft: false
           prerelease: false
 
