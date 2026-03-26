@@ -18,22 +18,25 @@ Also:
 
 ## Install
 
-Download the latest `.dmg` from [Releases](../../releases), or build from source:
+```bash
+brew install mnapoli/tap/promptedit
+```
+
+Or download the `.dmg` from [Releases](../../releases).
+
+<details>
+<summary>Build from source</summary>
 
 ```bash
 npm install
 npm run tauri build
+# Binary at src-tauri/target/release/promptedit
 ```
+</details>
 
 ## Setup
 
-Set PromptEdit as your Claude Code editor. Either globally via your shell:
-
-```bash
-export EDITOR="promptedit"
-```
-
-Or specifically for Claude Code in `~/.claude/settings.json`:
+Add to `~/.claude/settings.json`:
 
 ```json
 {
