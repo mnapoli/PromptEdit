@@ -35,7 +35,7 @@ jobs:
           if [ -z "$PREV_TAG" ] || [ "$PREV_TAG" = "${{ github.ref_name }}" ]; then
             echo "CHANGELOG=Initial release" >> $GITHUB_OUTPUT
           else
-            LOG=$(git log --pretty=format:"- %s" "$PREV_TAG".."${{ github.ref_name }}" -- . ':!.github' | grep -v "Co-Authored-By" | head -20)
+            LOG=$(git log --pretty=format:"- %s" "$PREV_TAG".."${{ github.ref_name }}" | grep -v "Co-Authored-By" | head -20)
             echo "CHANGELOG<<EOF" >> $GITHUB_OUTPUT
             echo "$LOG" >> $GITHUB_OUTPUT
             echo "EOF" >> $GITHUB_OUTPUT
