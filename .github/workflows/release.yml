@@ -15,6 +15,9 @@ jobs:
         platform: [macos-latest]
     runs-on: ${{ matrix.platform }}
 
+    env:
+      HAS_APPLE_CERT: ${{ secrets.APPLE_CERTIFICATE != '' }}
+
     steps:
       - uses: actions/checkout@v6
 
@@ -35,7 +38,7 @@ jobs:
         run: npm install
 
       - name: Build and release (signed)
-        if: ${{ secrets.APPLE_CERTIFICATE != '' }}
+        if: env.HAS_APPLE_CERT == 'true'
         uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -53,7 +56,7 @@ jobs:
           prerelease: false
 
       - name: Build and release (unsigned)
-        if: ${{ secrets.APPLE_CERTIFICATE == '' }}
+        if: env.HAS_APPLE_CERT != 'true'
         uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
