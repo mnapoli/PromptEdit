@@ -15,9 +15,6 @@ jobs:
         platform: [macos-latest]
     runs-on: ${{ matrix.platform }}
 
-    env:
-      HAS_APPLE_CERT: ${{ secrets.APPLE_CERTIFICATE != '' }}
-
     steps:
       - uses: actions/checkout@v6
 
@@ -37,8 +34,7 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build and release (signed)
-        if: env.HAS_APPLE_CERT == 'true'
+      - name: Build and release
         uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -48,18 +44,6 @@ jobs:
           APPLE_ID: ${{ secrets.APPLE_ID }}
           APPLE_PASSWORD: ${{ secrets.APPLE_PASSWORD }}
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
-        with:
-          tagName: v__VERSION__
-          releaseName: "PromptEdit v__VERSION__"
-          releaseBody: "See the assets to download and install this version."
-          releaseDraft: true
-          prerelease: false
-
-      - name: Build and release (unsigned)
-        if: env.HAS_APPLE_CERT != 'true'
-        uses: tauri-apps/tauri-action@v0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tagName: v__VERSION__
           releaseName: "PromptEdit v__VERSION__"
