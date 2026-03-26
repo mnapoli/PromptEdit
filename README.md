@@ -22,7 +22,15 @@ Also:
 brew install mnapoli/tap/promptedit
 ```
 
-Or download the `.dmg` from [Releases](../../releases).
+<details>
+<summary>Install from DMG</summary>
+
+Download the `.dmg` from [Releases](../../releases), open it, drag PromptEdit to Applications, then add it to your PATH:
+
+```bash
+ln -s /Applications/PromptEdit.app/Contents/MacOS/PromptEdit /usr/local/bin/promptedit
+```
+</details>
 
 <details>
 <summary>Build from source</summary>
